@@ -1,0 +1,22 @@
+server:
+  port: 8088
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8083/eureka
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: guestModule
+          uri: lb://GUEST-SERVICE
+          predicates:
+            - Path=/api/guest/**
+        - id: hotelModule
+          uri: lb://HOTEL-SERVICE
+          predicates:
+            - Path=/api/hotel/**
